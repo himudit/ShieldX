@@ -36,6 +36,38 @@ model Project {
   updatedAt DateTime @updatedAt
 }
 
+model ProjectApiKey {
+  id             String        @id @default(uuid())
+  projectId      String
+
+  apiKey         String        @unique
+  secretKeyHash  String
+
+  environment    ApiEnvironment
+  isActive       Boolean       @default(true)
+
+  project        Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt      DateTime      @default(now())
+}
+
+model ProjectJwtKey {
+  id                   String   @id @default(uuid())
+  projectId            String
+
+  kid                  String   @unique
+  publicKey            String
+  privateKeyEncrypted  String
+
+  algorithm            JwtAlgorithm @default(RS256)
+  isActive             Boolean   @default(true)
+
+  project              Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt            DateTime  @default(now())
+}
+
+
 model ProjectUser {
   id         String @id @default(uuid())
   projectId  String
@@ -70,4 +102,13 @@ enum ProjectStatus {
 enum UserRole {
   USER
   ADMIN
+}
+
+enum ApiEnvironment {
+  DEVELOPMENT
+  PRODUCTION
+}
+
+enum JwtAlgorithm {
+  RS256
 }
