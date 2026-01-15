@@ -31,6 +31,8 @@ model Project {
 
   owner   User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   members ProjectUser[]
+  apiKeys     ProjectApiKey[]
+  jwtKeys     ProjectJwtKey[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
