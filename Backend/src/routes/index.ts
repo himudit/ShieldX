@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as projectController from '../controllers/project.controller';
 import * as userController from '../controllers/user.controller';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -15,6 +16,8 @@ router.get('/', (req, res) => {
 
 // User routes
 router.post('/auth/signup', userController.signup);
+router.post('/auth/login', userController.login);
+router.get('/auth/profile', authMiddleware, userController.getProfile);
 
 // Project routes
 router.post('/projects', projectController.createProject);
