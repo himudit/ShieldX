@@ -1,23 +1,13 @@
 import { prisma } from '../config/primsa';
 import { hashPassword, verifyPassword } from '../utils/password';
 import { signToken } from '../utils/jwt';
-
-export interface SignupData {
-  email: string;
-  password: string;
-  name: string;
-}
-
-export interface SignupResult {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    role: string;
-    createdAt: Date;
-  };
-  token: string;
-}
+import {
+  SignupData,
+  SignupResult,
+  LoginData,
+  LoginResult,
+  ProfileResult,
+} from '../interfaces/user.interface';
 
 /**
  * Sign up a new user
@@ -84,21 +74,6 @@ export const signup = async (data: SignupData): Promise<SignupResult> => {
   };
 };
 
-export interface LoginData {
-  email: string;
-  password: string;
-}
-
-export interface LoginResult {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    role: string;
-    createdAt: Date;
-  };
-  token: string;
-}
 
 /**
  * Login an existing user
@@ -154,15 +129,6 @@ export const login = async (data: LoginData): Promise<LoginResult> => {
     token,
   };
 };
-
-export interface ProfileResult {
-  id: string;
-  email: string;
-  name: string;
-  role: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
 
 /**
  * Get user profile by ID

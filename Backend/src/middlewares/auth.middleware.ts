@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
-import { AppError } from './error.middleware';
+import { AppError } from '../interfaces/error.interface';
 
 /**
  * Authentication middleware to verify JWT token

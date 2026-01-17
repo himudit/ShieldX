@@ -1,10 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { env } from '../config/env';
-
-export interface AppError extends Error {
-  statusCode?: number;
-  isOperational?: boolean;
-}
+import { AppError } from '../interfaces/error.interface';
 
 export const errorMiddleware = (
   err: AppError,

@@ -1,12 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { env } from '../config/env';
-
-export interface JWTPayload {
-  user_id: string;
-  email: string;
-  issued_at: number;
-  expires_at: number;
-}
+import { JWTPayload } from '../interfaces/jwt.interface';
 
 /**
  * Sign a JWT token with user information

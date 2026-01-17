@@ -1,17 +1,8 @@
 import dotenv from 'dotenv';
+import { EnvConfig } from '../interfaces/env.interface';
 
 // Load environment variables
 dotenv.config();
-
-interface EnvConfig {
-  NODE_ENV: string;
-  PORT: number;
-  CORS_ORIGIN: string;
-  DATABASE_URL?: string;
-  JWT_SECRET?: string;
-  JWT_TTL?: string;
-  API_KEY?: string;
-}
 
 // Create env config with defaults
 export const env: EnvConfig = {
