@@ -1,0 +1,130 @@
+.project-sidebar {
+    width: 190px;
+    background: var(--bg-primary);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    user-select: none;
+    position: relative;
+}
+
+.project-sidebar.collapsed {
+    width: 70px;
+}
+
+.project-sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70px;
+}
+
+.project-sidebar.collapsed .project-sidebar-header {
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+.project-sidebar-header h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.project-resizer-handle {
+    position: absolute;
+    right: -4px;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    cursor: col-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.2s;
+    color: transparent;
+}
+
+.project-resizer-handle:hover {
+    background: rgba(249, 115, 22, 0.05);
+    color: var(--accent);
+}
+
+.project-resizer-handle::after {
+    content: '';
+    position: absolute;
+    right: 3px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.project-resizer-handle:hover::after {
+    opacity: 0.5;
+}
+
+.project-sidebar-nav {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.project-sidebar.collapsed .project-sidebar-nav {
+    padding: 1rem 0.75rem;
+}
+
+.project-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.project-sidebar.collapsed .project-nav-item {
+    justify-content: center;
+    padding: 0.75rem;
+}
+
+.project-nav-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.project-nav-item.active {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+.project-nav-item.active svg {
+    color: #ffffff;
+}
+
+.project-nav-item svg {
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+}
+
+.project-nav-item:hover svg {
+    color: #ffffff;
+}

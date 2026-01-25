@@ -1,7 +1,9 @@
 import { Plus, MoreVertical, Database, Users, Globe } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './Projects.css';
 
 export default function Projects() {
+  const navigate = useNavigate();
   const projects = [
     {
       id: 1,
@@ -50,13 +52,18 @@ export default function Projects() {
 
       <div className="projects-grid">
         {projects.map((project) => (
-          <div key={project.id} className="project-card">
+          <div
+            key={project.id}
+            className="project-card"
+            onClick={() => navigate(`/dashboard/projects/${project.id}`)}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="project-header">
               <div className="project-info">
                 <h3 className="project-name">{project.name}</h3>
                 <p className="project-description">{project.description}</p>
               </div>
-              <button className="icon-btn">
+              <button className="icon-btn" onClick={(e) => e.stopPropagation()}>
                 <MoreVertical size={18} />
               </button>
             </div>

@@ -1,0 +1,14 @@
+.project-layout {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.project-content {
+    flex: 1;
+    overflow-y: auto;
+    background: #000000f4;
+    /* Matching the main theme background */
+}
