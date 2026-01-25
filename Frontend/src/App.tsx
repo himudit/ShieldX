@@ -7,6 +7,8 @@ import SDK from './pages/SDK';
 import API from './pages/API';
 import Functions from './pages/Functions';
 import Settings from './pages/Settings';
+import ProjectLayout from './components/ProjectLayout/ProjectLayout';
+import ProjectOverview from './pages/ProjectOverview';
 import './App.css';
 
 function App() {
@@ -19,6 +21,14 @@ function App() {
           <Route index element={<Navigate to="overview" replace />} />
           <Route path="overview" element={<Overview />} />
           <Route path="projects" element={<Projects />} />
+          <Route path="projects/:projectId" element={<ProjectLayout />}>
+            <Route index element={<ProjectOverview />} />
+            <Route path="usage" element={<div>Users Page</div>} />
+            <Route path="data-browser" element={<div>Security Page</div>} />
+            <Route path="keys" element={<div>API Keys Page</div>} />
+            <Route path="logs" element={<div>Logs Page</div>} />
+            <Route path="settings" element={<div>Project Settings Page</div>} />
+          </Route>
           <Route path="sdk" element={<SDK />} />
           <Route path="api" element={<API />} />
           {/* <Route path="auth" element={<Auth />} /> */}
