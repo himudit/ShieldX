@@ -9,6 +9,8 @@ import Functions from './pages/Functions';
 import Settings from './pages/Settings';
 import ProjectLayout from './components/ProjectLayout/ProjectLayout';
 import ProjectOverview from './pages/ProjectOverview';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 import './App.css';
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Layout />}>
           {/* <Route index element={<Overview />} /> */}
           <Route index element={<Navigate to="overview" replace />} />

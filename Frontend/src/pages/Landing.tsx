@@ -104,8 +104,8 @@ export default function Landing() {
             <a href="#docs" className="nav-link">Docs</a>
           </div>
           <div className="nav-actions">
-            <Link to="/dashboard" className="nav-link-btn">Sign In</Link>
-            <Link to="/dashboard" className="nav-primary-btn">
+            <Link to="/login" className="nav-link-btn">Sign In</Link>
+            <Link to="/signup" className="nav-primary-btn">
               Get Started
               <ArrowRight size={16} />
             </Link>
