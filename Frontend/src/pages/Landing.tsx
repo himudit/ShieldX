@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CodeBlock, IconButton, createShikiAdapter } from "@chakra-ui/react"
 import type { HighlighterGeneric } from "shiki"
+import Navbar from './Navbar';
 import './Landing.css';
 
 const shikiAdapter = createShikiAdapter<HighlighterGeneric<any, any>>({
@@ -91,27 +92,7 @@ export default function Landing() {
       </div>
 
       {/* Navigation */}
-      <nav className="landing-nav">
-        <div className="nav-container">
-          <div className="nav-logo">
-            <div className="logo-icon">
-              <ShieldIcon size={30} onClick={() => navigate('/')} style={{ cursor: 'pointer' }} />
-            </div>
-            <span className="logo-text cursor-pointer" onClick={() => navigate('/')}>Shield</span>
-          </div>
-          <div className="nav-links">
-            <a href="#features" className="nav-link">Features</a>
-            <a href="#docs" className="nav-link">Docs</a>
-          </div>
-          <div className="nav-actions">
-            <Link to="/login" className="nav-link-btn">Sign In</Link>
-            <Link to="/signup" className="nav-primary-btn">
-              Get Started
-              <ArrowRight size={16} />
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="hero-section">
