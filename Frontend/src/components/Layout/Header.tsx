@@ -1,7 +1,19 @@
-import { Search, Bell, User, ChevronDown } from 'lucide-react';
+import { useState } from 'react';
+import { Search, Bell, User, ChevronDown, LogOut } from 'lucide-react';
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from '@/store';
+import { logout } from '../../store/slices/authSlice';
 import styles from './Header.module.css';
 
 export default function Header() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { user } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles['header-left']}>
@@ -18,11 +30,30 @@ export default function Header() {
         <button className={styles['header-icon-btn']}>
           <Bell size={18} />
         </button>
-        <div className={styles['user-menu']}>
-          <div className={styles['user-avatar']}>
-            <User size={16} />
+        <div className={styles['user-menu-container']}>
+          <div
+            className={styles['user-menu']}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            <div className={styles['user-avatar']}>
+              <User size={16} />
+            </div>
+            <ChevronDown size={16} />
           </div>
-          <ChevronDown size={16} />
+
+          {isDropdownOpen && (
+            <div className={styles['dropdown-menu']}>
+              <div className={styles['dropdown-header']}>
+                <p className={styles['user-name']}>{user?.name}</p>
+                <p className={styles['user-email']}>{user?.email}</p>
+              </div>
+              <div className={styles['dropdown-divider']} />
+              <button className={styles['logout-btn']} onClick={handleLogout}>
+                <LogOut size={16} />
+                <span>Logout</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

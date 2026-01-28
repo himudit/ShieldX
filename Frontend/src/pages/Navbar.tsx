@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, User, ChevronDown, LogOut } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from '@/store';
+import { logout } from "../store/slices/authSlice";
 import ShieldIcon from "../components/Common/ShieldIcon";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
+
+    const handleLogout = () => {
+        dispatch(logout());
+        setIsDropdownOpen(false);
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -36,11 +47,41 @@ const Navbar = () => {
 
                 {/* Actions */}
                 <div className={styles['navbar-actions']}>
-                    <Link to="/login" className={styles['nav-link-btn']}>Sign In</Link>
-                    <Link to="/signup" className={`${styles['nav-primary-btn']} ${scrolled ? styles.scrolled : ""}`}>
-                        Get Started
-                        <ArrowRight size={16} />
-                    </Link>
+                    {!isAuthenticated ? (
+                        <>
+                            <Link to="/login" className={styles['nav-link-btn']}>Sign In</Link>
+                            <Link to="/signup" className={`${styles['nav-primary-btn']} ${scrolled ? styles.scrolled : ""}`}>
+                                Get Started
+                                <ArrowRight size={16} />
+                            </Link>
+                        </>
+                    ) : (
+                        <div className={styles['user-menu-container']}>
+                            <div
+                                className={styles['user-menu']}
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                            >
+                                <div className={styles['user-avatar']}>
+                                    <User size={16} />
+                                </div>
+                                <ChevronDown size={16} className={styles['chevron-icon']} />
+                            </div>
+
+                            {isDropdownOpen && (
+                                <div className={styles['dropdown-menu']}>
+                                    <div className={styles['dropdown-header']}>
+                                        <p className={styles['user-name']}>{user?.name}</p>
+                                        <p className={styles['user-email']}>{user?.email}</p>
+                                    </div>
+                                    <div className={styles['dropdown-divider']} />
+                                    <button className={styles['logout-btn']} onClick={handleLogout}>
+                                        <LogOut size={16} />
+                                        <span>Logout</span>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
         </nav>
