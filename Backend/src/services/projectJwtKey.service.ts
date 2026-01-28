@@ -35,7 +35,6 @@ export const createJwtKey = async (
             projectId,
             kid,
             publicKey,
-            privateKeyEncrypted,
             algorithm: JwtAlgorithm.RS256,
         },
     });

@@ -16,13 +16,11 @@ export const createProject = async (userId: string, data: CreateProjectDto): Pro
       },
     });
 
-    // Create a default DEVELOPMENT API key
     const apiKey = await projectApiKeyService.createApiKey({
       projectId: project.id,
       environment: env.NODE_ENV as ApiEnvironment,
     }, tx as any);
 
-    // Create a default JWT Key pair
     const jwtKey = await projectJwtKeyService.createJwtKey(project.id, tx as any);
 
     return { project, apiKey, jwtKey };
