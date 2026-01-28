@@ -4,10 +4,8 @@ import { env } from './config/env';
 import { errorMiddleware } from './middlewares/error.middleware';
 import routes from './routes/index';
 
-// Create Express application
 const app: Express = express();
 
-// Trust proxy (important for production behind reverse proxy)
 app.set('trust proxy', 1);
 
 // CORS Configuration
@@ -17,13 +15,13 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 
-// Body parsing middleware
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Request logging middleware (only in development)
 if (env.NODE_ENV === 'development') {
   app.use((req: Request, res: Response, next: NextFunction) => {
     console.log(`${req.method} ${req.path}`);
@@ -31,7 +29,6 @@ if (env.NODE_ENV === 'development') {
   });
 }
 
-// Health check endpoint
 app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({
     status: 'ok',
@@ -40,10 +37,8 @@ app.get('/health', (req: Request, res: Response) => {
   });
 });
 
-// API Routes
 app.use('/api', routes);
 
-// 404 handler
 app.use((req: Request, res: Response) => {
   res.status(404).json({
     success: false,
@@ -52,7 +47,6 @@ app.use((req: Request, res: Response) => {
   });
 });
 
-// Error handling middleware (must be last)
 app.use(errorMiddleware);
 
 export default app;

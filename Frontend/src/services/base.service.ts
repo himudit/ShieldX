@@ -4,6 +4,8 @@ export async function apiClient<T>(
 ): Promise<T> {
   const token = localStorage.getItem('token');
   const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+  console.log(`${API_BASE_URL}${url}`);
+  console.log("url", url);
 
   const res = await fetch(`${API_BASE_URL}${url}`, {
     ...options,
@@ -13,6 +15,7 @@ export async function apiClient<T>(
       ...options.headers,
     },
   });
+  console.log(res);
 
   if (!res.ok) {
     throw await res.json();
