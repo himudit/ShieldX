@@ -11,6 +11,8 @@ import ProjectLayout from './components/ProjectLayout/ProjectLayout';
 import ProjectOverview from './pages/ProjectOverview';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import PublicRoute from './components/Auth/PublicRoute';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
 import './App.css';
 
 function App() {
@@ -18,27 +20,34 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Layout />}>
-          {/* <Route index element={<Overview />} /> */}
-          <Route index element={<Navigate to="overview" replace />} />
-          <Route path="overview" element={<Overview />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="projects/:projectId" element={<ProjectLayout />}>
-            <Route index element={<ProjectOverview />} />
-            <Route path="usage" element={<div>Users Page</div>} />
-            <Route path="data-browser" element={<div>Security Page</div>} />
-            <Route path="keys" element={<div>API Keys Page</div>} />
-            <Route path="logs" element={<div>Logs Page</div>} />
-            <Route path="settings" element={<div>Project Settings Page</div>} />
-          </Route>
-          <Route path="sdk" element={<SDK />} />
-          <Route path="api" element={<API />} />
-          {/* <Route path="auth" element={<Auth />} /> */}
-          <Route path="functions" element={<Functions />} />
-          <Route path="settings" element={<Settings />} />
+
+        {/* Public Routes - Only accessible when NOT logged in */}
+        <Route element={<PublicRoute />}>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
         </Route>
+
+        {/* Protected Routes - Only accessible when logged in */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Layout />}>
+            <Route index element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<Overview />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="projects/:projectId" element={<ProjectLayout />}>
+              <Route index element={<ProjectOverview />} />
+              <Route path="usage" element={<div>Users Page</div>} />
+              <Route path="data-browser" element={<div>Security Page</div>} />
+              <Route path="keys" element={<div>API Keys Page</div>} />
+              <Route path="logs" element={<div>Logs Page</div>} />
+              <Route path="settings" element={<div>Project Settings Page</div>} />
+            </Route>
+            <Route path="sdk" element={<SDK />} />
+            <Route path="api" element={<API />} />
+            <Route path="functions" element={<Functions />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Route>
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

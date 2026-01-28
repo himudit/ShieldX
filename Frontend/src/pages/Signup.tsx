@@ -3,12 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../store/slices/authSlice';
 import ShieldIcon from '../components/Common/ShieldIcon';
 import { signupSchema, SignupInput } from '../schemas/auth.schema';
 import api from '../utils/api';
 
 const Signup: React.FC = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
@@ -29,8 +32,8 @@ const Signup: React.FC = () => {
         try {
             const response = await api.post('/auth/signup', data);
             if (response.data.success) {
-                localStorage.setItem('token', response.data.data.token);
-                localStorage.setItem('user', JSON.stringify(response.data.data.user));
+                const { user, token } = response.data.data;
+                dispatch(setCredentials({ user, token }));
                 setToast(null);
                 navigate('/dashboard/overview');
             }
