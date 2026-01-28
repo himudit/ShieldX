@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Search, Bell, User, ChevronDown, LogOut } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '@/store';
@@ -7,12 +7,29 @@ import styles from './Header.module.css';
 
 export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <header className={styles.header}>
@@ -30,7 +47,7 @@ export default function Header() {
         <button className={styles['header-icon-btn']}>
           <Bell size={18} />
         </button>
-        <div className={styles['user-menu-container']}>
+        <div className={styles['user-menu-container']} ref={dropdownRef}>
           <div
             className={styles['user-menu']}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}

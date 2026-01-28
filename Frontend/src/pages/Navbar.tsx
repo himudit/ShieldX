@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, User, ChevronDown, LogOut } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +10,7 @@ import styles from "./Navbar.module.css";
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
@@ -27,6 +28,22 @@ const Navbar = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        if (isDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isDropdownOpen]);
 
     return (
         <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
@@ -56,7 +73,7 @@ const Navbar = () => {
                             </Link>
                         </>
                     ) : (
-                        <div className={styles['user-menu-container']}>
+                        <div className={styles['user-menu-container']} ref={dropdownRef}>
                             <div
                                 className={styles['user-menu']}
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
