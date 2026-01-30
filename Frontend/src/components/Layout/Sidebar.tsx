@@ -27,7 +27,6 @@ const navItems: NavItem[] = [
   { icon: FolderKanban, label: 'Projects', path: '/dashboard/projects' },
   { icon: Package, label: 'SDK', path: '/dashboard/sdk' },
   { icon: Webhook, label: 'API', path: '/dashboard/api' },
-  { icon: Code, label: 'Edge Functions', path: '/dashboard/functions' },
   { icon: Settings, label: 'Settings', path: '/dashboard/settings' },
 ];
 
