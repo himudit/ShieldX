@@ -9,6 +9,6 @@
 .project-content {
     flex: 1;
     overflow-y: auto;
-    background: #000000f4;
+    background-color: #0b0b0b;
     /* Matching the main theme background */
 }

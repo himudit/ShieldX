@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Database, Users, Activity, Clock } from 'lucide-react';
+import { Database, Users, Activity, Clock, User } from 'lucide-react';
 import ShieldIcon from '../components/Common/ShieldIcon';
 import styles from './ProjectOverview.module.css';
 
@@ -21,46 +21,78 @@ export default function ProjectOverview() {
     };
 
     return (
-        <div className={styles['project-overview']}>
-            <div className={styles['overview-header']}>
-                <div>
-                    <h1 className={styles['project-title']}>{project.name}</h1>
-                    <p className={styles['project-id']}>Project ID: {projectId}</p>
-                </div>
-                <div className={`${styles['status-badge']} ${styles[project.status]}`}>
-                    {project.status}
+        <div className={styles['branch-overview']}>
+
+            {/* HEADER */}
+            <div className={styles['branch-header']}>
+                <div className={styles['branch-title-row']}>
+                    <h2 className={styles['branch-title']}>Branch overview</h2>
+
+                    <div className={styles['branch-meta']}>
+                        <span className={styles['branch-name']}>production</span>
+                        <span className={styles['branch-badge']}>Default</span>
+                    </div>
                 </div>
             </div>
 
-            <div className={styles['stats-grid']}>
-                {project.stats.map((stat) => (
-                    <div key={stat.label} className={styles['stat-card']}>
-                        <div className={styles['stat-icon']} style={{ backgroundColor: `${stat.color}15`, color: stat.color }}>
-                            <stat.icon size={24} />
-                        </div>
-                        <div className={styles['stat-info']}>
-                            <span className={styles['stat-label']}>{stat.label}</span>
-                            <span className={styles['stat-value']}>{stat.value}</span>
+            {/* METRICS CARD */}
+            <div className={styles['overview-card']}>
+                <div className={styles['metric-grid']}>
+                    <div className={styles['metric-box']}>
+                        <div className={styles['metric-label']}>Storage</div>
+                        <div className={styles['metric-value']}>38.76 MB</div>
+                    </div>
+
+                    <div className={styles['divider']} />
+
+                    <div className={styles['info-item']}>
+                        <div className={styles['info-label']}>Created on</div>
+                        <div className={styles['info-value']}>
+                            2026-01-14 23:22:44 +05:30
                         </div>
                     </div>
-                ))}
+
+                    <div className={styles['divider']} />
+
+                    <div className={styles['info-item']}>
+                        <div className={styles['info-label']}>Created by</div>
+
+                        <div className={styles['user-row']}>
+                            <div className={styles['user-avatar']}>
+                                <User size={16} />
+                            </div>
+                            <div className={styles['user-name']}>Mudit</div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <div className={styles['recent-activity']}>
-                <div className={styles['section-header']}>
-                    <Clock size={18} />
-                    <h2>Recent Activity</h2>
-                </div>
-                <div className={styles['activity-list']}>
-                    {[1, 2, 3].map((i) => (
-                        <div key={i} className={styles['activity-item']}>
-                            <div className={styles['activity-dot']} />
-                            <div className={styles['activity-content']}>
-                                <p className={styles['activity-text']}>Database backup completed successfully</p>
-                                <span className={styles['activity-time']}>{i * 2} hours ago</span>
-                            </div>
+            {/* {INFO CARD} */}
+            <div className={styles['info-card']}>
+                <div className={styles['info-grid']}>
+
+                    <div className={styles['info-item']}>
+                        <div className={styles['info-label']}>ID</div>
+                        <div className={styles['info-value']}>br-floral-sun-ah65r1uw</div>
+                    </div>
+
+                    <div className={styles['divider']} />
+
+                    <div className={styles['info-item']}>
+                        <div className={styles['info-label']}>Created on</div>
+                        <div className={styles['info-value']}>
+                            2026-01-14 23:22:44 +05:30
                         </div>
-                    ))}
+                    </div>
+
+                    <div className={styles['divider']} />
+
+                    <div className={styles['info-item']}>
+                        <div className={styles['info-label']}>Created by</div>
+                        <div className={styles['info-value']}>Mudit</div>
+                    </div>
+
                 </div>
             </div>
         </div>
