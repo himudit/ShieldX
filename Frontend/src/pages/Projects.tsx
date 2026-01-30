@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Projects.module.css';
 import { useState } from 'react';
 import { createProject } from '../services/project.api';
+import { XTable } from '../components/ui/x-table/XTable';
 
 export default function Projects() {
   const navigate = useNavigate();
@@ -71,13 +72,19 @@ export default function Projects() {
     },
   ];
 
+  const data = [
+    { name: 'Athena', createdAt: '2022-01-01', storage: '100GB', status: 'active', lastActive: '2 hours ago' },
+    { name: 'John', createdAt: '2022-01-02', storage: '200GB', status: 'paused', lastActive: '1 day ago' },
+  ];
+
   return (
     <div className={styles['projects-page']}>
       <div className={styles['page-header']}>
-        <div>
-          <h1 className={styles['page-title']}>Projects</h1>
-          <p className={styles['page-subtitle']}>Manage your projects and resources</p>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Mudit's Projects</h1>
+          <p className={styles.subtitle}>Manage your projects and resources</p>
         </div>
+
         <button
           className={styles['primary-btn']}
           onClick={openCreateDialog}
@@ -153,7 +160,7 @@ export default function Projects() {
         </div>
       )}
 
-      <div className={styles['projects-grid']}>
+      {/* <div className={styles['projects-grid']}>
         {projects.map((project) => (
           <div
             key={project.id}
@@ -192,7 +199,18 @@ export default function Projects() {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
+
+      <XTable
+        data={data}
+        columns={[
+          { key: 'name', label: 'Name' },
+          { key: 'createdAt', label: 'Created At' },
+          { key: 'storage', label: 'Storage' },
+          { key: 'lastActive', label: 'Last Active' },
+          { key: 'status', label: 'Status' },
+        ]}
+      />
     </div>
   );
 }
