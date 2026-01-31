@@ -1,41 +1,10 @@
-// import { prisma } from '../config/primsa';
-// import { CreateProjectDto } from '../interfaces/project.interface';
-// import * as projectApiKeyService from './projectApiKey.service';
-// import * as projectJwtKeyService from './projectJwtKey.service';
-// import { ApiEnvironment } from '../enums/api-environment.enum';
-// import { env } from '../config/env';
-
-// export const createProject = async (userId: string, data: CreateProjectDto): Promise<any> => {
-//   // Use a transaction to ensure both project and API key are created
-//   const result = await prisma.$transaction(async (tx) => {
-//     const project = await tx.project.create({
-//       data: {
-//         name: data.name,
-//         description: data.description,
-//         ownerId: userId,
-//       },
-//     });
-
-//     const apiKey = await projectApiKeyService.createApiKey({
-//       projectId: project.id,
-//       environment: env.NODE_ENV as ApiEnvironment,
-//     }, tx as any);
-
-//     const jwtKey = await projectJwtKeyService.createJwtKey(project.id, tx as any);
-
-//     return { project, apiKey, jwtKey };
-//   });
-
-//   return result;
-// };
-
-
 import { prisma } from '../config/primsa';
-import { CreateProjectDto } from '../interfaces/project.interface';
+import { CreateProjectDto, ProjectResponse } from '../interfaces/project.interface';
 import * as projectApiKeyService from './projectApiKey.service';
 import * as projectJwtKeyService from './projectJwtKey.service';
 import { ApiEnvironment } from '../enums/api-environment.enum';
 import { env } from '../config/env';
+import { ProjectStatus } from '@prisma/client';
 
 export const createProject = async (
   userId: string,
@@ -98,4 +67,23 @@ export const createProject = async (
   });
 
   return result;
+};
+
+export const getProjects = async (userId: string): Promise<ProjectResponse[]> => {
+  const projects = await prisma.project.findMany({
+    where: {
+      ownerId: userId,
+    },
+    select: {
+      id: true,
+      ownerId: true,
+      name: true,
+      description: true,
+      status: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  return projects;
 };

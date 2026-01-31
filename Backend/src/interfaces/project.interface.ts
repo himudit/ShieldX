@@ -2,6 +2,18 @@
  * Project-related interfaces
  */
 
+import { ProjectStatus } from "../generated/prisma";
+
+export interface ProjectResponse {
+    id: string;
+    ownerId: string;
+    name: string;
+    description?: string | null;
+    status: ProjectStatus;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
 export interface CreateProjectDto {
     name: string;
     description?: string;
