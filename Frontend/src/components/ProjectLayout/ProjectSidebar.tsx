@@ -32,8 +32,10 @@ export default function ProjectSidebar({ isCollapsed, onToggle }: ProjectSidebar
     return (
         <aside className={`${styles['project-sidebar']} ${isCollapsed ? styles.collapsed : ''}`}>
             <div className={styles['project-sidebar-header']}>
-                {!isCollapsed ? <h3> <Boxes size={30} />  Project</h3> : <h3> <Boxes size={30} /> </h3>}
-
+                <h3>
+                    <Boxes size={24} />
+                    {!isCollapsed && <span className={styles['project-title']}>Project</span>}
+                </h3>
             </div>
             <nav className={styles['project-sidebar-nav']}>
                 {navItems.map((item) => (

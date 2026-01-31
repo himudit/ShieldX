@@ -73,6 +73,9 @@ td {
 /* Row hover */
 tr:hover td {
     background: #0f0f10;
+}
+
+.clickable {
     cursor: pointer;
 }
 

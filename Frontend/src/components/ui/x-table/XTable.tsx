@@ -7,11 +7,13 @@ import { Search } from 'lucide-react';
 type Props<T> = {
     data: T[];
     columns: Column<T>[];
+    onRowClick?: (row: T) => void;
 };
 
 export function XTable<T extends Record<string, any>>({
     data,
     columns,
+    onRowClick,
 }: Props<T>) {
     const [search, setSearch] = useState('');
     const [sortBy, setSortBy] = useState<keyof T | null>(null);
@@ -76,7 +78,11 @@ export function XTable<T extends Record<string, any>>({
                         </tr>
                     ) : (
                         sortedData.map((row, idx) => (
-                            <tr key={idx}>
+                            <tr
+                                key={idx}
+                                onClick={() => onRowClick?.(row)}
+                                className={onRowClick ? styles.clickable : ''}
+                            >
                                 {columns.map((col) => (
                                     <td key={String(col.key)}>
                                         {String(row[col.key])}

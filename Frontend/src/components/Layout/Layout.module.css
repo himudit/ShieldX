@@ -2,22 +2,18 @@
   display: flex;
   min-height: 100vh;
   --sidebar-collapsed-width: 72px;
+  --current-sidebar-width: var(--sidebar-width);
+}
+
+.layout.collapsed {
+  --current-sidebar-width: var(--sidebar-collapsed-width);
 }
 
 .main-content {
-  margin-left: var(--sidebar-width);
+  margin-left: var(--current-sidebar-width);
   margin-top: var(--header-height);
-  width: calc(100% - var(--sidebar-width));
+  width: calc(100% - var(--current-sidebar-width));
   min-height: calc(100vh - var(--header-height));
   background-color: var(--bg-primary);
   transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.layout.collapsed .main-content {
-  margin-left: var(--sidebar-collapsed-width);
-  width: calc(100% - var(--sidebar-collapsed-width));
-}
-
-.layout.collapsed .header {
-  left: var(--sidebar-collapsed-width);
 }

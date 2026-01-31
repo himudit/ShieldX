@@ -35,6 +35,7 @@ export default function Projects() {
 
   const rowData = useMemo(() => {
     return projects.map((project) => ({
+      id: project.id,
       name: project.name,
       createdAt: project.createdAt,
       storage: "100GB",
@@ -65,6 +66,10 @@ export default function Projects() {
     finally {
       setIsCreating(false);
     }
+  };
+
+  const handleRowClick = (project: any) => {
+    navigate(`/dashboard/projects/${project.id}`);
   };
 
   return (
@@ -162,6 +167,7 @@ export default function Projects() {
       ) : (
         <XTable
           data={rowData}
+          onRowClick={handleRowClick}
           columns={[
             { key: 'name', label: 'Name' },
             { key: 'createdAt', label: 'Created At' },

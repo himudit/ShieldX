@@ -1,7 +1,7 @@
 .header {
   position: fixed;
   top: 0;
-  left: var(--sidebar-width);
+  left: var(--current-sidebar-width);
   right: 0;
   /* height: var(--header-height); */
   height: 68.5px;
@@ -138,6 +138,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
