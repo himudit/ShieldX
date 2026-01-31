@@ -1,25 +1,34 @@
+import axios from "axios";
+import type { AxiosRequestConfig } from "axios";
+
+
 export async function apiClient<T>(
   url: string,
-  options: RequestInit = {}
+  options: AxiosRequestConfig = {}
 ): Promise<T> {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
-  console.log(`${API_BASE_URL}${url}`);
-  console.log("url", url);
 
-  const res = await fetch(`${API_BASE_URL}${url}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Bearer ${token}` : '',
-      ...options.headers,
-    },
-  });
-  console.log(res);
+  try {
+    const response = await axios<T>({
+      url: `${API_BASE_URL}${url}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+        ...options.headers,
+      },
+      ...options,
+    });
 
-  if (!res.ok) {
-    throw await res.json();
+    console.log("baseService", response.data);
+    return response.data;
+  } catch (error: any) {
+    // Axios puts response errors here
+    if (error.response) {
+      throw error.response.data;
+    }
+
+    // Network / unexpected error
+    throw error;
   }
-
-  return res.json();
 }

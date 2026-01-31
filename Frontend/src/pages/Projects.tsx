@@ -1,17 +1,47 @@
 import { Plus, MoreVertical, Database, Users, Globe, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Projects.module.css';
-import { useState } from 'react';
-import { createProject } from '../services/project.api';
+import { useState, useEffect, useMemo } from 'react';
+import { createProject, getProjects } from '../services/project.api';
 import { XTable } from '../components/ui/x-table/XTable';
+import { SkeletonXTable } from '../components/ui/x-table/SkeletonXTable';
+import type { ProjectResponseDto } from '../modules/project/dto/project-response.dto';
 
 export default function Projects() {
   const navigate = useNavigate();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [projects, setProjects] = useState<ProjectResponseDto[]>([]);
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setIsLoading(true);
+        const res = await getProjects();
+        setProjects(res.data as ProjectResponseDto[]);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+
+  const rowData = useMemo(() => {
+    return projects.map((project) => ({
+      name: project.name,
+      createdAt: project.createdAt,
+      storage: "100GB",
+      status: project.status,
+      lastActive: "2 hours ago",
+    }));
+  }, [projects]);
 
   const openCreateDialog = () => {
     setName('');
@@ -21,61 +51,21 @@ export default function Projects() {
 
 
   const handleCreateProject = async () => {
-    setIsLoading(true);
+    setIsCreating(true);
     try {
       await createProject({
         name,
         description,
       });
-
       setIsCreateOpen(false);
       // refresh project list later
     } catch (err) {
       console.error(err);
     }
     finally {
-      setIsLoading(false);
+      setIsCreating(false);
     }
   };
-
-
-  const projects = [
-    {
-      id: 1,
-      name: 'E-commerce Platform',
-      description: 'Production API for e-commerce platform',
-      status: 'active',
-      region: 'us-east-1',
-      databases: 3,
-      users: 1250,
-      updated: '2 hours ago',
-    },
-    {
-      id: 2,
-      name: 'Analytics Dashboard',
-      description: 'Analytics service with real-time dashboards',
-      status: 'active',
-      region: 'eu-west-1',
-      databases: 2,
-      users: 432,
-      updated: '1 day ago',
-    },
-    {
-      id: 3,
-      name: 'Mobile API',
-      description: 'Mobile backend API service',
-      status: 'paused',
-      region: 'us-west-2',
-      databases: 1,
-      users: 89,
-      updated: '3 days ago',
-    },
-  ];
-
-  const data = [
-    { name: 'Athena', createdAt: '2022-01-01', storage: '100GB', status: 'active', lastActive: '2 hours ago' },
-    { name: 'John', createdAt: '2022-01-02', storage: '200GB', status: 'paused', lastActive: '1 day ago' },
-  ];
 
   return (
     <div className={styles['projects-page']}>
@@ -89,7 +79,7 @@ export default function Projects() {
           className={styles['primary-btn']}
           onClick={openCreateDialog}
         >
-          <Plus size={18} />
+          {/* <Plus size={18} /> */}
           <span>New Project</span>
         </button>
 
@@ -159,17 +149,28 @@ export default function Projects() {
           </div>
         </div>
       )}
-
-      <XTable
-        data={data}
-        columns={[
-          { key: 'name', label: 'Name' },
-          { key: 'createdAt', label: 'Created At' },
-          { key: 'storage', label: 'Storage' },
-          { key: 'lastActive', label: 'Last Active' },
-          { key: 'status', label: 'Status' },
-        ]}
-      />
+      {isLoading ? (
+        <SkeletonXTable
+          columns={[
+            { key: 'name', label: 'Name' },
+            { key: 'createdAt', label: 'Created At' },
+            { key: 'storage', label: 'Storage' },
+            { key: 'lastActive', label: 'Last Active' },
+            { key: 'status', label: 'Status' },
+          ]}
+        />
+      ) : (
+        <XTable
+          data={rowData}
+          columns={[
+            { key: 'name', label: 'Name' },
+            { key: 'createdAt', label: 'Created At' },
+            { key: 'storage', label: 'Storage' },
+            { key: 'lastActive', label: 'Last Active' },
+            { key: 'status', label: 'Status' },
+          ]}
+        />
+      )}
     </div>
   );
 }
