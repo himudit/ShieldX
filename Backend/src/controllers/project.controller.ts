@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import * as projectService from '../services/project.service';
 import { AuthRequest } from '../interfaces/auth-request.interface';
-import { CreateProjectDto, ProjectResponse } from '../interfaces/project.interface';
+import { CreateProjectDto, CreateProjectResponseDto, ProjectResponseDto } from '../interfaces/project.interface';
 import { ApiResponse } from '../interfaces/api-request.interface';
 
 export const createProject = async (
@@ -20,12 +20,12 @@ export const createProject = async (
 
     const { name, description } = req.body;
 
-    const project = await projectService.createProject(userId, { name, description });
+    const projectResponseDto: CreateProjectResponseDto = await projectService.createProject(userId, { name, description });
 
     res.status(201).json({
       success: true,
       message: 'Project created successfully',
-      data: project,
+      data: projectResponseDto,
     });
   } catch (error) {
     next(error);
@@ -46,12 +46,12 @@ export const getProjects = async (
       throw error;
     }
 
-    const projects: ProjectResponse[] = await projectService.getProjects(userId);
+    const projectsResponseDto: ProjectResponseDto[] = await projectService.getProjects(userId);
 
-    const response: ApiResponse<ProjectResponse[]> = {
+    const response: ApiResponse<ProjectResponseDto[]> = {
       success: true,
       message: 'Projects retrieved successfully',
-      data: projects,
+      data: projectsResponseDto,
     };
     res.status(200).json(response);
 
@@ -59,3 +59,39 @@ export const getProjects = async (
     next(error);
   }
 };
+
+// export const getProjectById = async (
+//   req: AuthRequest,
+//   res: Response,
+//   next: NextFunction
+// ): Promise<void> => {
+//   try {
+//     const userId = req.userId;
+
+//     if (!userId) {
+//       const error = new Error('User ID is missing');
+//       (error as any).statusCode = 401;
+//       throw error;
+//     }
+
+//     const projectId = req.params.projectId;
+
+//     if (!projectId) {
+//       const error = new Error('Project ID is missing');
+//       (error as any).statusCode = 400;
+//       throw error;
+//     }
+
+//     const project: ProjectResponseDto = await projectService.getProjectById(userId, projectId);
+
+//     const response: ApiResponse<ProjectResponseDto> = {
+//       success: true,
+//       message: 'Project retrieved successfully',
+//       data: project,
+//     };
+//     res.status(200).json(response);
+
+//   } catch (error) {
+//     next(error);
+//   }
+// };

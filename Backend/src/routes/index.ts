@@ -22,6 +22,7 @@ router.get('/auth/profile', authMiddleware, userController.getProfile);
 // Project routes
 router.post('/projects', authMiddleware, projectController.createProject);
 router.get('/projects', authMiddleware, projectController.getProjects);
+// router.get('/projects/:projectId', authMiddleware, projectController.getProjectById);
 
 export default router;
 

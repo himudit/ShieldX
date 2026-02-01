@@ -2,23 +2,39 @@ import { useParams } from 'react-router-dom';
 import { Database, Users, Activity, Clock, User, Eye, EyeOff, Copy, Trash2, Plus } from 'lucide-react';
 import ShieldIcon from '../components/Common/ShieldIcon';
 import styles from './ProjectOverview.module.css';
+import { useEffect, useState } from 'react';
+import { getProjectById } from '../services/project.api';
+import type { ProjectResponseDto } from '../modules/project/dto/project-response.dto';
+
+// export interface Project {
+//     id: string;
+//     name: string;
+//     description: string;
+//     createdAt: Date;
+//     updatedAt: Date;
+//     ownerId: string;
+// }
 
 export default function ProjectOverview() {
     const { projectId } = useParams();
+    const [isLoading, setIsLoading] = useState(false);
+    const [project, setProject] = useState<ProjectResponseDto | null>(null);
 
-    // Mock data for the specific project
-    const project = {
-        id: projectId,
-        name: 'E-commerce Platform',
-        description: 'Production API for e-commerce platform',
-        status: 'active',
-        stats: [
-            { label: 'Total Requests', value: '1.2M', icon: Activity, color: '#6366f1' },
-            { label: 'Active Users', value: '1,250', icon: Users, color: '#10b981' },
-            { label: 'Databases', value: '3', icon: Database, color: '#f59e0b' },
-            { label: 'Security Score', value: '98%', icon: ShieldIcon, color: '#ef4444' },
-        ]
-    };
+    useEffect(() => {
+        const fetchProject = async () => {
+            try {
+                setIsLoading(true);
+                const res = await getProjectById(projectId as string);
+                setProject(res.data as ProjectResponseDto);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchProject();
+    }, []);
 
     return (
         <div className={styles['branch-overview']}>

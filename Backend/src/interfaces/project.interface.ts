@@ -1,10 +1,18 @@
-/**
- * Project-related interfaces
- */
-
 import { ProjectStatus } from "../generated/prisma";
+import { ApiEnvironment } from "../generated/prisma";
 
-export interface ProjectResponse {
+export interface CreateProjectResponseDto {
+    project: ProjectResponseDto;
+    apiKey: ApiKeyCreateResponseDto;
+    jwtKey: JwtKeyResponseDto;
+}
+
+export interface CreateProjectDto {
+    name: string;
+    description?: string;
+}
+
+export interface ProjectResponseDto {
     id: string;
     ownerId: string;
     name: string;
@@ -14,22 +22,34 @@ export interface ProjectResponse {
     updatedAt: Date;
 }
 
-export interface CreateProjectDto {
-    name: string;
-    description?: string;
-}
-
-export interface CreateProjectApiKeyDto {
-    projectId: string;
-    environment: ApiEnvironment;
-}
-
-export interface ProjectApiKeyResponse {
+export interface ApiKeyCreateResponseDto {
     id: string;
-    projectId: string;
     apiKey: string;
-    secretKey: string; // Plain secret key returned only once
-    environment: ApiEnvironment;
+    secretKey: string; // shown ONCE
+    environment: string;
     isActive: boolean;
     createdAt: Date;
+}
+
+export interface ApiKeyResponseDto {
+    id: string;
+    apiKey: string;
+    environment: string;
+    isActive: boolean;
+    createdAt: Date;
+}
+
+export interface JwtKeyResponseDto {
+    id: string;
+    kid: string;
+    publicKey: string;
+    algorithm: string;
+    isActive: boolean;
+    createdAt: Date;
+}
+
+export interface ProjectMetaResponseDto {
+    project: ProjectResponseDto;
+    apiKey: ApiKeyResponseDto;
+    jwtKey: JwtKeyResponseDto;
 }

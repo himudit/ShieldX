@@ -1,4 +1,4 @@
-import type { ProjectResponseDto } from '../modules/project/dto/project-response.dto';
+import type { ProjectResponseDto, ProjectMetaResponse } from '../modules/project/dto/project-response.dto';
 import { apiClient } from './base.service';
 
 
@@ -14,4 +14,12 @@ export function createProject(data: { name: string; description?: string }) {
 
 export function getProjects() {
     return apiClient<ProjectResponseDto[]>('/api/projects');
+}
+
+export function getProjectById(projectId: string) {
+    return apiClient<ProjectMetaResponse>('/api/projects', {
+        params: {
+            projectId,
+        },
+    });
 }
