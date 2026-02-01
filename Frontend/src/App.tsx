@@ -13,11 +13,13 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import PublicRoute from './components/Auth/PublicRoute';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
+import { GlobalDialog } from './components/ui/Dialog/GlobalDialog';
 import './App.css';
 
 function App() {
   return (
     <BrowserRouter>
+      <GlobalDialog />
       <Routes>
         <Route path="/" element={<Landing />} />
 
