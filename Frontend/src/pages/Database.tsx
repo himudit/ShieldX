@@ -37,6 +37,7 @@ export default function Database() {
   ];
 
   const columns: Column<ProjectUserRowResponseDto>[] = [
+    { key: 'id', label: 'User Id', copyable: true },
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
     { key: 'role', label: 'Role' },
@@ -47,7 +48,7 @@ export default function Database() {
 
   return (
     <div className={styles['database-page']}>
-      <div className={styles['page-header']}>
+      {/* <div className={styles['page-header']}>
         <div>
           <h1 className={styles['page-title']}>Database</h1>
           <p className={styles['page-subtitle']}>Manage your project users and permissions</p>
@@ -62,7 +63,7 @@ export default function Database() {
             <span>Add User</span>
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div className={styles['tables-section']}>
         <div className={styles['section-header']}>

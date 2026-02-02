@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './XTable.module.css';
 import type { Column } from './types';
-import { Search } from 'lucide-react';
+import { Search, Copy, Check } from 'lucide-react';
 
 
 type Props<T> = {
@@ -18,6 +18,14 @@ export function XTable<T extends Record<string, any>>({
     const [search, setSearch] = useState('');
     const [sortBy, setSortBy] = useState<keyof T | null>(null);
     const [reverse, setReverse] = useState(false);
+    const [copiedId, setCopiedId] = useState<string | null>(null);
+
+    const handleCopy = (e: React.MouseEvent, text: string, id: string) => {
+        e.stopPropagation();
+        navigator.clipboard.writeText(text);
+        setCopiedId(id);
+        setTimeout(() => setCopiedId(null), 2000);
+    };
 
     const filteredData = data.filter((row) =>
         columns.some((col) =>
@@ -83,11 +91,30 @@ export function XTable<T extends Record<string, any>>({
                                 onClick={() => onRowClick?.(row)}
                                 className={onRowClick ? styles.clickable : ''}
                             >
-                                {columns.map((col) => (
-                                    <td key={String(col.key)}>
-                                        {String(row[col.key])}
-                                    </td>
-                                ))}
+                                {columns.map((col) => {
+                                    const value = String(row[col.key]);
+                                    const uniqueId = `${idx}-${String(col.key)}`;
+                                    const isCopied = copiedId === uniqueId;
+
+                                    return (
+                                        <td key={String(col.key)}>
+                                            {col.copyable ? (
+                                                <div
+                                                    className={styles['copy-container']}
+                                                    onClick={(e) => handleCopy(e, value, uniqueId)}
+                                                    title="Click to copy"
+                                                >
+                                                    <div className={`${styles['copy-btn']} ${isCopied ? styles.copied : ''}`}>
+                                                        {isCopied ? <Check size={14} /> : <Copy size={14} />}
+                                                    </div>
+                                                    <span className={styles['copy-text']}>{value}</span>
+                                                </div>
+                                            ) : (
+                                                value
+                                            )}
+                                        </td>
+                                    );
+                                })}
                             </tr>
                         ))
                     )}
@@ -96,3 +123,4 @@ export function XTable<T extends Record<string, any>>({
         </div>
     );
 }
+
