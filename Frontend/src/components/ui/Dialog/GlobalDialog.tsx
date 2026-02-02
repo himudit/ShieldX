@@ -82,23 +82,38 @@ export const GlobalDialog = () => {
                         <DialogActionTrigger asChild>
                             <Button
                                 variant="ghost"
-                                size="sm"
-                                color="gray.400"
-                                _hover={{ color: "gray.200", bg: "whiteAlpha.100" }}
+                                size="md"
+                                px="6"
+                                w="70px"
+                                h="35px"
+                                color="gray.300"
+                                border="1px solid"
+                                borderColor="gray.600"
+                                borderRadius="999px"
+                                _hover={{
+                                    color: "gray.200",
+                                    bg: "whiteAlpha.100",
+                                    borderColor: "gray.600",
+                                }}
+                                _active={{
+                                    bg: "whiteAlpha.200",
+                                }}
                                 onClick={handleClose}
                             >
                                 Later
                             </Button>
+
                         </DialogActionTrigger>
 
                         <Button
                             size="md"
                             px="6"
-                            h="42px"
+                            w="70px"
+                            h="35px"
                             bg="#f97316"
-                            color="black"
+                            color="white"
                             fontWeight="600"
-                            borderRadius="8px"
+                            borderRadius="33px"
                             _hover={{ bg: "#fb923c" }}
                             _active={{ bg: "#f97316" }}
                             onClick={handleConfirm}

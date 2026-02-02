@@ -3,3 +3,9 @@ export enum ProjectStatus {
     INACTIVE,
     ARCHIVED
 }
+
+export enum ProjectRole {
+    OWNER,
+    ADMIN,
+    MEMBER
+}
