@@ -32,6 +32,14 @@
   flex-shrink: 0;
 }
 
+.separator {
+  color: #3e3e3e;
+  font-size: 1.7em;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
 .logo-img {
   width: 36px;
   height: 36px;

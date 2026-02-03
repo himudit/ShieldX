@@ -6,6 +6,7 @@ import { logout } from '../../store/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import { Avatar } from '../ui/Avatar/Avatar';
+import { BreadCrumb } from '../ui/BreadCrumb/BreadCrumb';
 
 export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -41,6 +42,8 @@ export default function Header() {
           <img src="/shield.png" alt="Shield" className={styles['logo-img']} />
           <span className={styles['logo-text']}>Shield</span>
         </div>
+        <span className={styles.separator}>/</span>
+        <BreadCrumb />
       </div>
       <div className={styles['header-right']}>
         <div className={styles['user-menu-container']} ref={dropdownRef}>
