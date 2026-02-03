@@ -1,6 +1,7 @@
 import { Plus, Filter, Loader2 } from 'lucide-react';
 import styles from './Database.module.css';
 import { XTable } from '@/components/ui/x-table/XTable';
+import { SkeletonXTable } from '@/components/ui/x-table/SkeletonXTable';
 import type { ProjectUserRowResponseDto } from '@/modules/projectUser/dto/projectUserRow-response.dto';
 import { ProjectRole } from '@/enums/enum';
 import type { Column } from '@/components/ui/x-table/types';
@@ -43,14 +44,6 @@ export default function Database() {
     { key: 'lastLoginAt', label: 'Last Login' },
   ];
 
-  if (isLoading) {
-    return (
-      <div className={styles['database-page']} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-        <Loader2 className="animate-spin" size={32} />
-      </div>
-    );
-  }
-
   return (
     <div className={styles['database-page']}>
       <div className={styles['tables-section']}>
@@ -60,11 +53,15 @@ export default function Database() {
         </div>
 
         <div className={styles['table-container']}>
-          <XTable
-            data={users}
-            columns={columns}
-            onRowClick={(row) => console.log('Clicked row:', row)}
-          />
+          {isLoading ? (
+            <SkeletonXTable columns={columns} />
+          ) : (
+            <XTable
+              data={users}
+              columns={columns}
+              onRowClick={(row) => console.log('Clicked row:', row)}
+            />
+          )}
         </div>
       </div>
     </div>

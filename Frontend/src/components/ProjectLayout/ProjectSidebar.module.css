@@ -148,7 +148,7 @@
 }
 
 .project-nav-item svg {
-    color: var(--text-tertiary);
+    color: #7e7e7e;
     flex-shrink: 0;
     transition: color 0.2s ease;
 }
