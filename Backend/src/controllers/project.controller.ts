@@ -95,3 +95,29 @@ export const getProjectById = async (
     next(error);
   }
 };
+
+export const getProjectUsers = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const userId = req.userId;
+
+    if (!userId) {
+      const error = new Error('User ID is missing');
+      (error as any).statusCode = 401;
+      throw error;
+    }
+
+    const projectUsers = await projectService.getProjectUsersByProvider(userId);
+
+    res.status(200).json({
+      success: true,
+      message: 'Project users retrieved successfully',
+      data: projectUsers,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

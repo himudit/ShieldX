@@ -23,3 +23,9 @@ export function getProjectById(projectId: string) {
         `/api/projects/${projectId}`
     );
 }
+
+export function getProjectUsers() {
+    return apiClient<ApiResponse<ProjectUserRowResponseDto[]>>(
+        '/api/projects/users/me'
+    );
+}

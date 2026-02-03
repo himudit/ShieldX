@@ -1,5 +1,5 @@
 import { prisma } from '../config/primsa';
-import { CreateProjectDto, ProjectResponseDto, ApiKeyCreateResponseDto, JwtKeyResponseDto, CreateProjectResponseDto, ProjectMetaResponseDto, ApiKeyResponseDto } from '../interfaces/project.interface';
+import { CreateProjectDto, ProjectResponseDto, ApiKeyCreateResponseDto, JwtKeyResponseDto, CreateProjectResponseDto, ProjectMetaResponseDto, ApiKeyResponseDto, ProjectUserRowResponseDto } from '../interfaces/project.interface';
 import * as projectApiKeyService from './projectApiKey.service';
 import * as projectJwtKeyService from './projectJwtKey.service';
 import { ApiEnvironment } from '../enums/api-environment.enum';
@@ -199,4 +199,25 @@ export const getProjectById = async (userId: string, projectId: string): Promise
   };
 
   return result;
+};
+
+export const getProjectUsersByProvider = async (userId: string): Promise<ProjectUserRowResponseDto[]> => {
+  const projectUsers = await prisma.projectUser.findMany({
+    where: {
+      providerId: userId,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return projectUsers.map((user) => ({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    isVerified: user.isVerified,
+    createdAt: user.createdAt.toISOString(),
+    lastLoginAt: user.lastLoginAt ? user.lastLoginAt.toISOString() : 'Never',
+  }));
 };

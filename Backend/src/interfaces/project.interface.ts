@@ -1,4 +1,4 @@
-import { ProjectStatus } from "../generated/prisma";
+import { ProjectStatus, ProjectRole } from "../generated/prisma";
 import { ApiEnvironment } from "../generated/prisma";
 
 export interface CreateProjectDto {
@@ -52,4 +52,14 @@ export interface ProjectMetaResponseDto {
     project: ProjectResponseDto;
     apiKey: ApiKeyResponseDto;
     jwtKey: JwtKeyResponseDto;
+}
+
+export interface ProjectUserRowResponseDto {
+    id: string;
+    name: string;
+    email: string;
+    role: ProjectRole;
+    isVerified: boolean;
+    createdAt: string;
+    lastLoginAt: string;
 }
