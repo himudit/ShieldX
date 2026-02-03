@@ -121,6 +121,3 @@ The UI uses a consistent design system with CSS variables:
 
 MIT
 
-
-Bugs
-on login we are getting loginn again becuase of baseService
