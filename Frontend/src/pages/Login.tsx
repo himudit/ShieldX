@@ -8,6 +8,8 @@ import { setCredentials } from '../store/slices/authSlice';
 import { loginSchema, LoginInput } from '../schemas/auth.schema';
 import { authService } from '../services/auth.service';
 import type { AuthResponse } from '../types/auth';
+import orangeBackground from '../assets/orange_background.jpg';
+
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
@@ -87,23 +89,8 @@ const Login: React.FC = () => {
                     }}
                     className="auth-sidebar"
                 >
-                    <div style={{ maxWidth: '350px', width: '100%' }}>
+                    <div style={{ maxWidth: '330px', width: '100%' }}>
                         <div style={{ marginBottom: '2rem' }}>
-                            <button
-                                onClick={() => navigate('/')}
-                                style={{
-                                    all: 'unset',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '0.5rem',
-                                    cursor: 'pointer',
-                                    color: 'var(--accent)'
-                                }}
-                            >
-                                <img src="/shield.png" alt="ShieldX" style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
-                                <span style={{ fontSize: '2rem', fontWeight: '700', color: 'var(--text-primary)' }}>ShieldX</span>
-                            </button>
-
                             <p style={{ fontSize: '2rem', color: 'var(--text-primary)', marginTop: '0.5rem' }}>Welcome back</p>
                             <p style={{ fontSize: '0.8745em', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Please enter your details</p>
                         </div>
@@ -188,7 +175,7 @@ const Login: React.FC = () => {
                                     opacity: isLoading ? 0.7 : 1
                                 }}
                                 onMouseOver={(e) => !isLoading && (e.currentTarget.style.backgroundColor = 'var(--accent-hover)')}
-                                onMouseOut={(e) => !isLoading && (e.currentTarget.style.backgroundColor = 'var(--accent)')}
+                                onMouseOut={(e) => !isLoading && (e.currentTarget.style.backgroundColor = 'var(--accent-hover)')}
                             >
                                 {isLoading ? 'Logging in...' : 'Log In'}
                             </button>
@@ -196,7 +183,7 @@ const Login: React.FC = () => {
 
                         <p style={{ marginTop: '1.5rem', fontSize: '0.875rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
                             Don't have an account?{' '}
-                            <Link to="/signup" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
+                            <Link to="/signup" style={{ color: 'white', textDecoration: 'none' }}>
                                 Sign Up
                             </Link>
                         </p>
@@ -207,7 +194,9 @@ const Login: React.FC = () => {
                 <div
                     style={{
                         width: '65%',
-                        backgroundColor: 'var(--bg-primary)',
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${orangeBackground})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -215,11 +204,28 @@ const Login: React.FC = () => {
                     }}
                     className="auth-main"
                 >
-                    <div style={{ textAlign: 'center', color: 'white' }}>
-                        <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Welcome back to ShieldX</h2>
-                        <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem', maxWidth: '600px' }}>
-                            Access your dashboard, manage your projects, and keep your applications secure.
-                        </p>
+                    <div style={{ textAlign: 'center', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
+                        <button
+                            onClick={() => navigate('/')}
+                            style={{
+                                all: 'unset',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                cursor: 'pointer',
+                                color: 'var(--accent)',
+                                marginBottom: '1rem'
+                            }}
+                        >
+                            <img src="/shield.png" alt="ShieldX" style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
+                            <span style={{ fontSize: '3rem', fontWeight: '700', color: 'white' }}>ShieldX</span>
+                        </button>
+                        <div style={{ textAlign: 'center' }}>
+                            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Welcome back to ShieldX</h2>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem', maxWidth: '600px' }}>
+                                Access your dashboard, manage your projects, and keep your applications secure.
+                            </p>
+                        </div>
                     </div>
                 </div>
 

@@ -139,7 +139,7 @@
 }
 
 .navItem.active .itemIcon {
-    color: var(--accent, #ff751f);
+    color: #ff751f;
     opacity: 1;
 }
 

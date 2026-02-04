@@ -18,3 +18,9 @@
     font-size: 2rem;
     font-weight: 700;
 } */
+
+input::placeholder {
+    color: #facc15;
+    /* yellow */
+    opacity: 0.7;
+}
