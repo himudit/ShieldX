@@ -18,7 +18,7 @@ export const authMiddleware = async (
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-      const error: AppError = new Error('Authorization header is missing');
+      const error: AppError = new Error('Authentication required');
       error.statusCode = 401;
       throw error;
     }
@@ -55,7 +55,7 @@ export const authMiddleware = async (
       }
       next(appError);
     } else {
-      const appError: AppError = new Error('Authentication failed');
+      const appError: AppError = new Error('Session expired. Please login again.');
       appError.statusCode = 401;
       next(appError);
     }

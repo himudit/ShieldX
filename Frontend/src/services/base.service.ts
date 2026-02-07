@@ -28,7 +28,7 @@ export async function apiClient<T>(
   } catch (error: any) {
     // Axios puts response errors here
     if (error.response) {
-      if (error.response.status === 401) {
+      if (error.response.status === 401 && error.response.data?.message === "Session expired. Please login again.") {
         store.dispatch(showDialog({
           title: "Session Expired",
           message: "Your session has expired. Please login again to continue.",
