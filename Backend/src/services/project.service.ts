@@ -24,7 +24,6 @@ export const createProject = async (
         ownerId: userId,
       },
     });
-
     const projectDto: ProjectResponseDto = {
       id: projectModel.id,
       ownerId: projectModel.ownerId,
@@ -35,7 +34,6 @@ export const createProject = async (
       updatedAt: projectModel.updatedAt,
     };
 
-
     const apiKeyModel = await tx.projectApiKey.create({
       data: {
         projectId: projectModel.id,
@@ -44,7 +42,6 @@ export const createProject = async (
         environment: apiKeyPrepared.environment,
       },
     });
-
     const apiKeyDto: ApiKeyCreateResponseDto = {
       id: apiKeyModel.id,
       apiKey: apiKeyModel.apiKey,
@@ -63,7 +60,6 @@ export const createProject = async (
         algorithm: jwtKeyPrepared.algorithm,
       },
     });
-
     const jwtKeyDto: JwtKeyResponseDto = {
       id: jwtKeyModel.id,
       kid: jwtKeyModel.kid,
