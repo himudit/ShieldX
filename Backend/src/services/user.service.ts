@@ -86,7 +86,7 @@ export const login = async (data: LoginData): Promise<LoginResult> => {
     throw error;
   }
 
-  // Validate email format
+  // Validate email forma
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(data.email)) {
     const error = new Error('Invalid email format');

@@ -26,19 +26,32 @@ export async function apiClient<T>(
     console.log("baseService", response.data);
     return response.data;
   } catch (error: any) {
-    // Axios puts response errors here
     if (error.response) {
-      if (error.response.status === 401 && error.response.data?.message === "Session expired. Please login again.") {
-        store.dispatch(showDialog({
-          title: "Session Expired",
-          message: "Your session has expired. Please login again to continue.",
-          onConfirm: () => {
-            store.dispatch(logout());
-            window.location.href = "/login";
-          }
-        }));
+      const { status, data } = error.response;
+
+      if (status === 401) {
+        if (data?.message === "Session expired. Please login again.") {
+          store.dispatch(
+            showDialog({
+              title: "Session Expired",
+              message: data.message,
+              onConfirm: () => {
+                store.dispatch(logout());
+                window.location.href = "/login";
+              },
+            })
+          );
+          return;
+        }
+
+        if (data?.message === "Authentication required" || data?.message === "Invalid authentication token") {
+          store.dispatch(logout());
+          window.location.href = "/login";
+          return;
+        }
+
       }
-      throw error.response.data;
+      throw data
     }
 
     // Network / unexpected error
