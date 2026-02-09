@@ -28,46 +28,52 @@ model Project {
   description String?
   status      ProjectStatus @default(ACTIVE)
 
-  owner   User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner   User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   members ProjectUser[]
-  apiKeys     ProjectApiKey[]
-  jwtKeys     ProjectJwtKey[]
+  apiKeys ProjectApiKey[]
+  jwtKeys ProjectJwtKey[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  logs      Logs[]
+
+  @@index([ownerId])
 }
 
 model ProjectApiKey {
-  id             String        @id @default(uuid())
-  projectId      String
+  id        String @id @default(uuid())
+  projectId String
 
-  apiKey         String        @unique
-  secretKeyHash  String
+  apiKey        String @unique
+  secretKeyHash String
 
-  environment    ApiEnvironment
-  isActive       Boolean       @default(true)
+  environment ApiEnvironment
+  isActive    Boolean        @default(true)
 
-  project        Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
-  createdAt      DateTime      @default(now())
+  createdAt DateTime @default(now())
+
+  @@index([projectId])
 }
 
 model ProjectJwtKey {
-  id                   String   @id @default(uuid())
-  projectId            String
+  id        String @id @default(uuid())
+  projectId String
 
-  kid                  String   @unique
-  publicKey            String
-  privateKeyEncrypted  String
+  kid                 String @unique
+  publicKey           String
+  privateKeyEncrypted String
 
-  algorithm            JwtAlgorithm @default(RS256)
-  isActive             Boolean   @default(true)
+  algorithm JwtAlgorithm @default(RS256)
+  isActive  Boolean      @default(true)
 
-  project              Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
-  createdAt            DateTime  @default(now())
+  createdAt DateTime @default(now())
+
+  @@index([projectId])
 }
-
 
 model ProjectUser {
   id         String @id @default(uuid())
@@ -86,6 +92,24 @@ model ProjectUser {
 
   createdAt   DateTime  @default(now())
   lastLoginAt DateTime?
+
+  @@unique([projectId, email])
+}
+
+model Logs {
+  id         String @id @default(uuid())
+  projectId  String
+  providerId String
+
+  requestType String
+  statusCode  Int
+  message     String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([projectId, createdAt])
 }
 
 enum ProjectRole {
