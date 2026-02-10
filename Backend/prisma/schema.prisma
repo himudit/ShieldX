@@ -101,6 +101,7 @@ model Logs {
   projectId  String
   providerId String
 
+  route       String
   requestType String
   statusCode  Int
   message     String
