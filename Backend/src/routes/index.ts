@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as projectController from '../controllers/project.controller';
 import * as userController from '../controllers/user.controller';
+import * as gatwayController from '../controllers/gateway.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
@@ -25,6 +26,12 @@ router.get('/projects', authMiddleware, projectController.getProjects);
 router.get('/projects/users/me', authMiddleware, projectController.getProjectUsers);
 router.get('/projects/:projectId', authMiddleware, projectController.getProjectById);
 
+// iam routes (connection for microservice)
+router.post('/iam/register', authMiddleware, gatwayController.gateWaySignup);
+router.post('/iam/login', authMiddleware, gatwayController.gateWayLogin);
+// router.get('/iam/profile', authMiddleware, gatwayController.gateWayProfile);
+// router.post('/iam/refresh', authMiddleware, gatwayController.gateWayRefresh);
+// router.post('/iam/logout', authMiddleware, gatwayController.gateWayLogout);
 
 export default router;
 
