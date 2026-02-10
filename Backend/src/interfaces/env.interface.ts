@@ -11,5 +11,6 @@ export interface EnvConfig {
   JWT_TTL?: string;
   API_KEY?: string;
   ENCRYPTION_KEY?: string;
+  AUTH_MICROSERVICE?: string;
 }
 

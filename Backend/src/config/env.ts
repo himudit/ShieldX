@@ -28,6 +28,7 @@ export const env: EnvConfig = {
   JWT_TTL: process.env.JWT_TTL ?? '3600',
   API_KEY: process.env.API_KEY,
   ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
+  AUTH_MICROSERVICE: process.env.AUTH_MICROSERVICE || 'http://localhost:8080',
 };
 
 // Validate PORT
