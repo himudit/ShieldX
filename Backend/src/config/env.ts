@@ -29,6 +29,7 @@ export const env: EnvConfig = {
   API_KEY: process.env.API_KEY,
   ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
   AUTH_MICROSERVICE: process.env.AUTH_MICROSERVICE || 'http://localhost:8080',
+  FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173',
 };
 
 // Validate PORT
@@ -43,6 +44,7 @@ if (env.NODE_ENV === ApiEnvironment.PRODUCTION) {
     'JWT_SECRET',
     'ENCRYPTION_KEY',
     'CORS_ORIGIN',
+    'FRONTEND_URL',
   ];
 
   const missing = requiredEnvVars.filter((key) => !env[key]);

@@ -3,6 +3,7 @@ import cors from 'cors';
 import { env } from './config/env';
 import { errorMiddleware } from './middlewares/error.middleware';
 import routes from './routes/index';
+// import cookieParser from 'cookie-parser';
 
 const app: Express = express();
 
@@ -20,17 +21,20 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// CORS Configuration
-const corsOptions = {
-  origin: env.CORS_ORIGIN.split(',').map((origin) => origin.trim()),
-  credentials: true,
-  optionsSuccessStatus: 200,
-};
+app.use(
+  cors({
+    origin: env.FRONTEND_URL,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'x-project-id',
+      'x-api-key'
+    ],
+  })
+);
 
-// app.use(cors(corsOptions));
-app.use(cors());
-
-
+// app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 

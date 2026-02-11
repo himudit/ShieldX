@@ -12,5 +12,6 @@ export interface EnvConfig {
   API_KEY?: string;
   ENCRYPTION_KEY?: string;
   AUTH_MICROSERVICE?: string;
+  FRONTEND_URL?: string;
 }
 
