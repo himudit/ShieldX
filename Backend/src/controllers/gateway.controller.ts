@@ -29,7 +29,7 @@ export const gateWaySignup = async (
         if (!userId) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid API key',
+                message: 'Invalid API key or ProjectId',
                 data: null,
             });
         }
@@ -101,7 +101,7 @@ export const gateWayLogin = async (
         if (!userId) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid API key',
+                message: 'Invalid API key or ProjectId',
                 data: null,
             });
         }
@@ -153,7 +153,7 @@ export const gateWayRefresh = async (
     try {
         const projectId = req.headers['x-project-id'];
         const apiKey = req.headers['x-api-key'];
-        const refreshToken = req.body.refreshToken;
+        const refreshToken = req.body?.refreshToken;
 
         if (!apiKey || !projectId) {
             return res.status(400).json({
@@ -178,7 +178,7 @@ export const gateWayRefresh = async (
         if (!userId) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid API key',
+                message: 'Invalid API key or ProjectId',
                 data: null,
             });
         }
