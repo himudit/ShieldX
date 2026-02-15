@@ -92,7 +92,8 @@ export function XTable<T extends Record<string, any>>({
                                 className={onRowClick ? styles.clickable : ''}
                             >
                                 {columns.map((col) => {
-                                    const value = String(row[col.key]);
+                                    const value = row[col.key];
+                                    const displayValue = col.render ? col.render(value, row) : String(value);
                                     const uniqueId = `${idx}-${String(col.key)}`;
                                     const isCopied = copiedId === uniqueId;
 
@@ -101,16 +102,16 @@ export function XTable<T extends Record<string, any>>({
                                             {col.copyable ? (
                                                 <div
                                                     className={styles['copy-container']}
-                                                    onClick={(e) => handleCopy(e, value, uniqueId)}
+                                                    onClick={(e) => handleCopy(e, String(value), uniqueId)}
                                                     title="Click to copy"
                                                 >
                                                     <div className={`${styles['copy-btn']} ${isCopied ? styles.copied : ''}`}>
                                                         {isCopied ? <Check size={14} /> : <Copy size={14} />}
                                                     </div>
-                                                    <span className={styles['copy-text']}>{value}</span>
+                                                    <span className={styles['copy-text']}>{displayValue}</span>
                                                 </div>
                                             ) : (
-                                                value
+                                                displayValue
                                             )}
                                         </td>
                                     );

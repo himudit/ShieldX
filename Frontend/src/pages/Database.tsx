@@ -1,4 +1,5 @@
 import { Plus, Filter, Loader2 } from 'lucide-react';
+import { useRelativeTime } from '@/utils/useRelativeTime';
 import styles from './Database.module.css';
 import { XTable } from '@/components/ui/x-table/XTable';
 import { SkeletonXTable } from '@/components/ui/x-table/SkeletonXTable';
@@ -40,8 +41,16 @@ export default function Database() {
     { key: 'email', label: 'Email' },
     { key: 'role', label: 'Role' },
     { key: 'isVerified', label: 'Verified' },
-    { key: 'createdAt', label: 'Created At' },
-    { key: 'lastLoginAt', label: 'Last Login' },
+    {
+      key: 'createdAt',
+      label: 'Created At',
+      render: (value) => useRelativeTime(value)
+    },
+    {
+      key: 'lastLoginAt',
+      label: 'Last Login',
+      render: (value) => useRelativeTime(value)
+    },
   ];
 
   return (

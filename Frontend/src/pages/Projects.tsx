@@ -1,4 +1,5 @@
 import { Plus, MoreVertical, Database, Users, Globe, X } from 'lucide-react';
+import { useRelativeTime } from '../utils/useRelativeTime';
 import { useNavigate } from 'react-router-dom';
 import styles from './Projects.module.css';
 import { useState, useEffect, useMemo } from 'react';
@@ -163,7 +164,11 @@ export default function Projects() {
         <SkeletonXTable
           columns={[
             { key: 'name', label: 'Name' },
-            { key: 'createdAt', label: 'Created At' },
+            {
+              key: 'createdAt',
+              label: 'Created At',
+              render: (value) => useRelativeTime(value)
+            },
             { key: 'storage', label: 'Storage' },
             { key: 'lastActive', label: 'Last Active' },
             { key: 'status', label: 'Status' },
@@ -175,7 +180,11 @@ export default function Projects() {
           onRowClick={handleRowClick}
           columns={[
             { key: 'name', label: 'Name' },
-            { key: 'createdAt', label: 'Created At' },
+            {
+              key: 'createdAt',
+              label: 'Created At',
+              render: (value) => useRelativeTime(value)
+            },
             { key: 'storage', label: 'Storage' },
             { key: 'lastActive', label: 'Last Active' },
             { key: 'status', label: 'Status' },

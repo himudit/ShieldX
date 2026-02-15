@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useRelativeTime } from '../utils/useRelativeTime';
 import { Database, Users, Activity, Clock, Eye, EyeOff, Copy, Trash2, Plus, Check } from 'lucide-react';
 import { Avatar } from '../components/ui/Avatar/Avatar';
 import { useEffect, useState } from 'react';
@@ -97,7 +98,7 @@ export default function ProjectOverview() {
                             {isLoading ? (
                                 <SkeletonDiv width="150px" height="18px" />
                             ) : (
-                                projectData?.project.createdAt ? new Date(projectData.project.createdAt).toLocaleString() : 'N/A'
+                                useRelativeTime(projectData?.project.createdAt) || 'N/A'
                             )}
                         </div>
                     </div>
