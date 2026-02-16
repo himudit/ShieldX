@@ -116,7 +116,7 @@ export const getProjectUsers = async (
       throw error;
     }
 
-    const projectId = req.params.projectId;
+    const projectId = req.params.projectId as string;
 
     if (!projectId) {
       const error = new Error('Project ID is missing');
