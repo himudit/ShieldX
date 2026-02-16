@@ -40,7 +40,7 @@
   white-space: nowrap;
 }
 
-.logo-img {
+/* .logo-img {
   width: 36px;
   height: 36px;
   object-fit: contain;
@@ -51,7 +51,21 @@
   font-weight: 600;
   font-size: 18px;
   letter-spacing: -0.01em;
+} */
+
+.logo-text {
+  display: inline-flex;
+  align-items: center;
+  /* Perfect vertical centering */
+  font-weight: 600;
+  font-size: 18px;
 }
+
+.logoX {
+  height: 1.8em;
+  margin-left: 2px;
+}
+
 
 /* Search and Bell icons removed */
 

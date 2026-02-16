@@ -20,7 +20,21 @@
 } */
 
 input::placeholder {
-    color: #facc15;
+    /* color: #facc15; */
     /* yellow */
     opacity: 0.7;
+}
+
+.logo-text {
+    display: inline-flex;
+    align-items: center;
+    /* Perfect vertical centering */
+    font-weight: 600;
+    font-size: 45px;
+    color: var(--text-primary);
+}
+
+.logoX {
+    height: 1.8em;
+    margin-left: 2px;
 }

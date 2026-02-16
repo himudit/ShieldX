@@ -50,10 +50,10 @@ const Navbar = () => {
             <div className={styles['navbar-inner']}>
                 {/* Logo */}
                 <div className={styles['navbar-logo']} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-                    <div className={`${styles['logo-icon']} ${scrolled ? styles.scrolled : ""}`}>
-                        <img src="/shield.png" alt="ShieldX" className={styles['logo-img']} />
-                    </div>
-                    <span className={styles['logo-text']}>Shield</span>
+                    <span className={styles['logo-text']}>
+                        Protec
+                        <img src="/X.png" alt="X" className={styles.logoX} />
+                    </span>
                 </div>
 
                 {/* Links */}

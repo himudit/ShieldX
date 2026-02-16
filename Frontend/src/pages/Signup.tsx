@@ -9,6 +9,7 @@ import { signupSchema, SignupInput } from '../schemas/auth.schema';
 import { authService } from '../services/auth.service';
 import type { AuthResponse } from '../types/auth';
 import orangeBackground from '../assets/orange_background.jpg';
+import styles from './Signup.module.css';
 
 
 const Signup: React.FC = () => {
@@ -253,11 +254,13 @@ const Signup: React.FC = () => {
                                 marginBottom: '1rem'
                             }}
                         >
-                            <img src="/shield.png" alt="ShieldX" style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
-                            <span style={{ fontSize: '3rem', fontWeight: '700', color: 'white' }}>ShieldX</span>
+                            <span className={styles['logo-text']}>
+                                Protec
+                                <img src="/X.png" alt="X" className={styles.logoX} />
+                            </span>
                         </button>
                         <div style={{ textAlign: 'center' }}>
-                            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Secure your applications with ShieldX</h2>
+                            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Secure your applications with ProtecX</h2>
                             <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem', maxWidth: '600px' }}>
                                 The most advanced security platform for modern web applications. Protect your data and your users with ease.
                             </p>

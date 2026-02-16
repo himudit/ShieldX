@@ -97,10 +97,10 @@ export default function Landing() {
       <section className={styles['hero-section']}>
         <div className={styles['hero-container']}>
           <h1 className={styles['hero-title']}>
-            Build <span className={styles.strikethrough}>faster</span> <span className={styles['fastest-text']}>fastest</span> backend with <span className={styles['gradient-text']}>Shield</span>
+            Build <span className={styles.strikethrough}>faster</span> <span className={styles['fastest-text']}>fastest</span> backend with <span className={styles['gradient-text']}>ProtecX</span>
           </h1>
           <p className={styles['hero-description']}>
-            Shield is a backend platform that gives you everything you need to build modern apps.
+            ProtecX is a backend platform that gives you everything you need to build modern apps.
             <br />
             Database, authentication, storage, and edge functions, all in one place.
           </p>
@@ -146,7 +146,7 @@ export default function Landing() {
       <section id="features" className={styles['features-section']}>
         <div className={styles['features-container']}>
           <div className={styles['section-header']}>
-            <h2 className={styles['section-title']}>What Shield provides</h2>
+            <h2 className={styles['section-title']}>What ProtecX provides</h2>
             <p className={styles['section-description']}>
               Everything you need to build your backend, without managing infrastructure.
             </p>
@@ -187,8 +187,10 @@ export default function Landing() {
         <div className={styles['footer-container']}>
           <div className={styles['footer-brand']}>
             <div className={styles['footer-logo']}>
-              <img src="/shield.png" alt="Shield" className={styles['footer-logo-img']} />
-              <span>Shield</span>
+              <span className={styles['logo-text']}>
+                Protec
+                <img src="/X.png" alt="X" className={styles.logoX} />
+              </span>
             </div>
             <p className={styles['footer-tagline']}>Backend as a Service</p>
           </div>
@@ -206,7 +208,7 @@ export default function Landing() {
           </div>
         </div>
         <div className={styles['footer-bottom']}>
-          <p>© 2024 Shield</p>
+          <p>© 2024 ProtecX</p>
         </div>
       </footer>
     </div>

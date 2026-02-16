@@ -366,6 +366,21 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
+
+.logo-text {
+  display: inline-flex;
+  align-items: center;
+  /* Perfect vertical centering */
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.logoX {
+  height: 1.8em;
+  margin-left: 2px;
+}
+
+
 .footer-links {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

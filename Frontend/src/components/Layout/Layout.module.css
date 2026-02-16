@@ -1,7 +1,7 @@
 .layout {
   display: flex;
   min-height: 100vh;
-  --sidebar-collapsed-width: 72px;
+  --sidebar-collapsed-width: 64px;
   --current-sidebar-width: var(--sidebar-width);
 }
 

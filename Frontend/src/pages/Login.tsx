@@ -9,6 +9,7 @@ import { loginSchema, LoginInput } from '../schemas/auth.schema';
 import { authService } from '../services/auth.service';
 import type { AuthResponse } from '../types/auth';
 import orangeBackground from '../assets/orange_background.jpg';
+import styles from './Login.module.css';
 
 
 const Login: React.FC = () => {
@@ -217,11 +218,13 @@ const Login: React.FC = () => {
                                 marginBottom: '1rem'
                             }}
                         >
-                            <img src="/shield.png" alt="ShieldX" style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
-                            <span style={{ fontSize: '3rem', fontWeight: '700', color: 'white' }}>ShieldX</span>
+                            <span className={styles['logo-text']}>
+                                Protec
+                                <img src="/X.png" alt="X" className={styles.logoX} />
+                            </span>
                         </button>
                         <div style={{ textAlign: 'center' }}>
-                            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Welcome back to ShieldX</h2>
+                            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Welcome back to ProtecX</h2>
                             <p style={{ color: 'var(--text-secondary)', fontSize: '1.125rem', maxWidth: '600px' }}>
                                 Access your dashboard, manage your projects, and keep your applications secure.
                             </p>

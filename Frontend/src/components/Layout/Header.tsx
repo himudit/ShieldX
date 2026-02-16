@@ -39,8 +39,11 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles['header-left']}>
         <div className={styles.logo} onClick={() => navigate('/')}>
-          <img src="/shield.png" alt="Shield" className={styles['logo-img']} />
-          <span className={styles['logo-text']}>Shield</span>
+          <span className={styles['logo-text']}>
+            Protec
+            <img src="/X.png" alt="X" className={styles.logoX} />
+          </span>
+
         </div>
         <span className={styles.separator}>/</span>
         <BreadCrumb />
