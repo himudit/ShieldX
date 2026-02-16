@@ -20,6 +20,12 @@ export const createProject = async (
 
     const { name, description } = req.body;
 
+    if (!name || name.trim().length < 3 || name.trim().length > 15) {
+      const error = new Error('Project name must be between 3 and 15 characters');
+      (error as any).statusCode = 400;
+      throw error;
+    }
+
     const projectResponseDto: CreateProjectResponseDto = await projectService.createProject(userId, { name, description });
 
     res.status(201).json({
@@ -110,12 +116,54 @@ export const getProjectUsers = async (
       throw error;
     }
 
-    const projectUsers = await projectService.getProjectUsersByProvider(userId);
+    const projectId = req.params.projectId;
+
+    if (!projectId) {
+      const error = new Error('Project ID is missing');
+      (error as any).statusCode = 400;
+      throw error;
+    }
+
+    const projectUsers = await projectService.getProjectUsers(userId, projectId);
 
     res.status(200).json({
       success: true,
       message: 'Project users retrieved successfully',
       data: projectUsers,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getProjectLogs = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const userId = req.userId;
+
+    if (!userId) {
+      const error = new Error('User ID is missing');
+      (error as any).statusCode = 401;
+      throw error;
+    }
+
+    const projectId = req.params.projectId;
+
+    if (!projectId) {
+      const error = new Error('Project ID is missing');
+      (error as any).statusCode = 400;
+      throw error;
+    }
+
+    const logs = await projectService.getProjectLogs(userId as string, projectId as string);
+
+    res.status(200).json({
+      success: true,
+      message: 'Project logs retrieved successfully',
+      data: logs,
     });
   } catch (error) {
     next(error);

@@ -197,10 +197,11 @@ export const getProjectById = async (userId: string, projectId: string): Promise
   return result;
 };
 
-export const getProjectUsersByProvider = async (userId: string): Promise<ProjectUserRowResponseDto[]> => {
+export const getProjectUsers = async (userId: string, projectId: string): Promise<ProjectUserRowResponseDto[]> => {
   const projectUsers = await prisma.projectUser.findMany({
     where: {
       providerId: userId,
+      projectId: projectId,
     },
     orderBy: {
       createdAt: 'desc',
@@ -216,4 +217,17 @@ export const getProjectUsersByProvider = async (userId: string): Promise<Project
     createdAt: user.createdAt.toISOString(),
     lastLoginAt: user.lastLoginAt ? user.lastLoginAt.toISOString() : 'Never',
   }));
+};
+
+export const getProjectLogs = async (userId: string, projectId: string): Promise<any[]> => {
+  const logs = await prisma.logs.findMany({
+    where: {
+      projectId: projectId,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return logs;
 };

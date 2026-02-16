@@ -7,18 +7,21 @@ import type { ProjectUserRowResponseDto } from '@/modules/projectUser/dto/projec
 import { ProjectRole } from '@/enums/enum';
 import type { Column } from '@/components/ui/x-table/types';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getProjectUsers } from '@/services/project.api';
 // import { toast } from 'react-hot-toast';
 
 export default function Database() {
+  const { projectId } = useParams<{ projectId: string }>();
   const [users, setUsers] = useState<ProjectUserRowResponseDto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
+      if (!projectId) return;
       try {
         setIsLoading(true);
-        const response = await getProjectUsers();
+        const response = await getProjectUsers(projectId);
         if (response.success) {
           setUsers(response.data);
         } else {
