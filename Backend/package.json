@@ -4,8 +4,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "nodemon",
-    "prod": "npm run build && node dist/server.js",
+    "start": "node dist/server.js",
+    "dev": "nodemon",
+    "prod": "node dist/server.js",
     "postinstall": "prisma generate"
   },
   "keywords": [],
