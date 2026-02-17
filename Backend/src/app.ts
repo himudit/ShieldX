@@ -3,6 +3,8 @@ import cors from 'cors';
 import { env } from './config/env';
 import { errorMiddleware } from './middlewares/error.middleware';
 import routes from './routes/index';
+import iamRouter from './routes/iamRouter';
+import { requestLogger } from './middlewares/requestLogger.middleware';
 // import cookieParser from 'cookie-parser';
 
 const app: Express = express();
@@ -34,6 +36,35 @@ app.use(
   })
 );
 
+
+// app.use((req, res, next) => {
+//   const start = Date.now();
+
+//   const oldJson = res.json;
+
+//   res.json = function (body) {
+//     res.locals.responseBody = body;   // store response body
+//     return oldJson.call(this, body);
+//   };
+
+//   res.on('finish', () => {
+//     const duration = Date.now() - start;
+
+//     console.log({
+//       duration,
+//       method: req.method,
+//       url: req.originalUrl,
+//       statusCode: res.statusCode,
+//       error: res.statusCode >= 400,
+//       message: res.locals.responseBody?.message,
+//       createdAt: new Date().toISOString(),
+//     });
+//   });
+
+//   next();
+// });
+
+
 // app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -53,6 +84,7 @@ app.get('/health', (req: Request, res: Response) => {
   });
 });
 
+app.use('/api/iam', iamRouter);
 app.use('/api', routes);
 
 app.use((req: Request, res: Response) => {

@@ -30,6 +30,9 @@ export const env: EnvConfig = {
   ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
   AUTH_MICROSERVICE: process.env.AUTH_MICROSERVICE || 'http://localhost:8080',
   FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173',
+  RABBITMQ_URL: process.env.RABBITMQ_URL,
+  RABBITMQ_QUEUE: process.env.RABBITMQ_QUEUE || 'api_logs_queue',
+  RABBITMQ_PREFETCH: Number(process.env.RABBITMQ_PREFETCH || 10),
 };
 
 // Validate PORT

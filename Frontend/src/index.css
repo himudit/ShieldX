@@ -9,7 +9,7 @@
   --border-color: #2a2a2a;
   --text-primary: #ffffff;
   --text-secondary: #c3c0b6;
-  --text-tertiary: #30302e;
+  --text-tertiary: #8e8e8e;
   --accent: #ea580c;
   --accent-hover: #ea580c;
   --accent-light: #d97757;
@@ -21,7 +21,7 @@
   --white-text-secondary: #1f1f1f;
   --orange-accent: #fe902d;
 
-  --sidebar-width: 190px;
+  --sidebar-width: 170px;
   --sidebar-header-height: 64px;
   --header-height: 68.5px;
 

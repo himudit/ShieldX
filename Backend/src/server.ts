@@ -1,19 +1,27 @@
 import app from './app';
 import { env } from './config/env';
+import { startLogConsumer } from './rabbitmq/log.consumer';
+import { closeConnection } from './rabbitmq/connection';
 
 // Get port from environment or default to 3000
 const PORT = env.PORT;
 
 // Start server
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Environment: ${env.NODE_ENV}`);
+
+  // Initialize RabbitMQ Consumer
+  await startLogConsumer();
 });
 
 // Graceful shutdown handling
-const gracefulShutdown = (signal: string) => {
+const gracefulShutdown = async (signal: string) => {
   console.log(`\n${signal} received. Shutting down gracefully...`);
-  
+
+  await closeConnection();
+  console.log('RabbitMQ connection closed.');
+
   server.close(() => {
     console.log('HTTP server closed.');
     process.exit(0);

@@ -13,5 +13,8 @@ export interface EnvConfig {
   ENCRYPTION_KEY?: string;
   AUTH_MICROSERVICE?: string;
   FRONTEND_URL?: string;
+  RABBITMQ_URL?: string;
+  RABBITMQ_QUEUE?: string;
+  RABBITMQ_PREFETCH?: number;
 }
 
