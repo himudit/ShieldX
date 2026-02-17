@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "start": "nodemon",
-    "prod": "npm run build && node dist/server.js"
+    "prod": "npm run build && node dist/server.js",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",

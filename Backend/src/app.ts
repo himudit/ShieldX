@@ -76,7 +76,7 @@ if (env.NODE_ENV === 'development') {
   });
 }
 
-app.get('/health', (req: Request, res: Response) => {
+app.get('/ping', (req: Request, res: Response) => {
   res.status(200).json({
     status: 'ok',
     timestamp: new Date().toISOString(),
