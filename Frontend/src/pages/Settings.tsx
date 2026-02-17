@@ -16,7 +16,7 @@ export default function Settings() {
       items: ['Email Notifications', 'Push Notifications', 'SMS Alerts'],
     },
     {
-      icon: () => <img src="/shield.png" alt="ProtecX Security" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />,
+      icon: () => <img src="/x.png" alt="ProtecX Security" style={{ width: '20px', height: '20px', objectFit: 'contain' }} />,
       title: 'Security',
       description: 'Security and authentication settings',
       items: ['Two-Factor Authentication', 'API Keys', 'Sessions'],

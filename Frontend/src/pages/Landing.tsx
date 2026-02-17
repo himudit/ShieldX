@@ -65,7 +65,7 @@ export default function Landing() {
       description: 'Subscribe to database changes. Broadcast messages to connected clients.',
     },
     {
-      icon: () => <img src="/shield.png" alt="Security" style={{ width: '24px', height: '24px' }} />,
+      icon: () => <img src="/X.png" alt="Security" style={{ width: '24px', height: '24px' }} />,
       title: 'Security',
       description: 'SSL everywhere, encryption at rest. SOC 2 compliant infrastructure.',
     },
