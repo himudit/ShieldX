@@ -1,5 +1,5 @@
-import { ProjectStatus, ProjectRole } from "../generated/prisma";
-import { ApiEnvironment } from "../generated/prisma";
+import { ProjectStatus, ProjectRole } from "@prisma/client";
+import { ApiEnvironment } from "@prisma/client";
 
 export interface CreateProjectDto {
     name: string;
