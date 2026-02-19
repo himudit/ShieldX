@@ -107,6 +107,7 @@
 
 /* Links */
 .navbar-links-container {
+    margin-right: 2rem;
     display: flex;
     align-items: center;
     gap: 32px;
