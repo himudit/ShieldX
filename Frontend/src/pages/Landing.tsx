@@ -7,12 +7,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Landing() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const navigate = useNavigate();
-
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      document.documentElement.style.setProperty('--mouse-x', `${x}`);
+      document.documentElement.style.setProperty('--mouse-y', `${y}`);
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
@@ -58,13 +58,13 @@ export default function Landing() {
         <div
           className={`${styles['gradient-orb']} ${styles['orb-1']}`}
           style={{
-            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+            transform: `translate(calc(var(--mouse-x, 0) * 20px), calc(var(--mouse-y, 0) * 20px))`,
           }}
         />
         <div
           className={`${styles['gradient-orb']} ${styles['orb-2']}`}
           style={{
-            transform: `translate(${mousePosition.x * -0.03}px, ${mousePosition.y * -0.03}px)`,
+            transform: `translate(calc(var(--mouse-x, 0) * -30px), calc(var(--mouse-y, 0) * -30px))`,
           }}
         />
         <div className={styles['grid-pattern']} />
