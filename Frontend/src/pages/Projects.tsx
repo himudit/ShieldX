@@ -7,6 +7,8 @@ import { createProject, getProjects } from '../services/project.api';
 import { XTable } from '../components/ui/x-table/XTable';
 import { SkeletonXTable } from '../components/ui/x-table/SkeletonXTable';
 import type { ProjectResponseDto } from '../modules/project/dto/project-response.dto';
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/store';
 
 export default function Projects() {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ export default function Projects() {
   const [description, setDescription] = useState('');
   const [projects, setProjects] = useState<ProjectResponseDto[]>([]);
   const [nameError, setNameError] = useState('');
+  const user = useSelector((state: RootState) => state.auth.user);
+  const displayTitle = user?.name ? `${user.name}'s Projects` : 'My Projects';
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -95,7 +99,7 @@ export default function Projects() {
     <div className={styles['projects-page']}>
       <div className={styles['page-header']}>
         <div className={styles.header}>
-          <h1 className={styles.title}>Mudit's Projects</h1>
+          <h1 className={styles.title}>{displayTitle}</h1>
           <p className={styles.subtitle}>Manage your projects and resources</p>
         </div>
 
