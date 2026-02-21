@@ -5,6 +5,7 @@ import { ArrowRight, Database, Lock, HardDrive, Code, Globe } from 'lucide-react
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { initLenis, destroyLenis } from '../utils/lenis';
 
 export default function Landing() {
   useEffect(() => {
@@ -16,6 +17,13 @@ export default function Landing() {
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    initLenis();
+    return () => {
+      destroyLenis();
+    };
   }, []);
 
   const features = [

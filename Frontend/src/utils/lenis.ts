@@ -1,6 +1,7 @@
 import Lenis from '@studio-freight/lenis';
 
 let lenis: Lenis | null = null;
+let rafId: number | null = null;
 
 export const initLenis = () => {
     if (lenis) return lenis;
@@ -19,16 +20,20 @@ export const initLenis = () => {
 
     function raf(time: number) {
         lenis?.raf(time);
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
     return lenis;
 };
 
 export const getLenis = () => lenis;
 
 export const destroyLenis = () => {
+    if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+    }
     lenis?.destroy();
     lenis = null;
 };
