@@ -84,7 +84,7 @@ app.get('/ping', (req: Request, res: Response) => {
   });
 });
 
-app.use('/api/iam', iamRouter);
+app.use('/api/v1/iam', iamRouter);
 app.use('/api', routes);
 
 app.use((req: Request, res: Response) => {
